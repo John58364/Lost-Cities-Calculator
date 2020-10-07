@@ -1,0 +1,158 @@
+import java.util.Scanner;
+
+public class Calculator
+{
+	private static int p1score;
+	private static int p2score;
+	private static int prScore;
+	private static String[] colors =
+	{ "PURPLE", "RED", "GREEN", "BLUE", "WHITE", "YELLOW" };
+	private static String[] names = { "", "" };
+
+	public static void main(String[] args)
+	{
+		Scanner kb = new Scanner(System.in);
+		System.out.print("Enter the first players name: ");
+		names[0] = kb.next();
+
+		System.out.print("Enter the second players name: ");
+		names[1] = kb.next();
+
+		boolean space = false;
+		String input = "";
+		System.out.print("\nAre you using the space cards? (Y/N) ");
+		input = kb.next().toUpperCase();
+
+		if (input.equals("Y"))
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				System.out.println("\nROUND " + (i + 1) + ":");
+				for (int l = 0; l < 2; l++)
+				{
+					prScore = 0;
+					for (int j = 0; j < 6; j++)
+					{
+						System.out.print("Did " + names[l] + " play any " + colors[j] + " cards this round? (Y/N) ");
+						input = kb.next().toUpperCase();
+						if (input.equals("Y"))
+						{
+							int roundScore = 0;
+							System.out.print("How many cards were played including wagers? ");
+							int numCards = kb.nextInt();
+
+							System.out.print("How many wagers were played? (Max 3) ");
+							int wagers = kb.nextInt();
+
+							int cardsLeft = numCards - wagers;
+							for (int k = 0; k < cardsLeft; k++)
+							{
+								System.out.print("Card: ");
+								int card = kb.nextInt();
+								roundScore += card;
+							}
+
+							roundScore -= 20;
+							if (wagers > 0)
+							{
+								roundScore *= wagers + 1;
+							}
+							if (numCards >= 8)
+							{
+								roundScore += 20;
+							}
+							prScore += roundScore;
+							if (l == 0)
+								p1score += roundScore;
+							else
+								p2score += roundScore;
+							System.out.print(names[l] + " got " + roundScore + " points with that color.\n\n");
+						}
+					}
+					System.out.println("\n" + names[l] + " got " + prScore + " for round " + (i + 1) + "\n");
+				}
+				System.out.println(
+						"Current scores are: " + names[0] + ": " + p1score + " " + names[1] + ": " + p2score);
+				if (i != 2)
+				{
+					if (p1score > p2score)
+					{
+						System.out.println(names[0] + " is ahead by " + (p1score - p2score) + " point(s).");
+						System.out.println(names[0] + " goes first next round");
+					} else
+					{
+						System.out.println(names[1] + " is ahead by " + (p2score - p1score) + " point(s).");
+						System.out.println(names[1] + " goes first next round");
+					}
+				}
+			}
+		} else
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				System.out.println("\nROUND " + (i + 1) + ":");
+				for (int l = 0; l < 2; l++)
+				{
+					prScore = 0;
+					for (int j = 1; j < 6; j++)
+					{
+						System.out.print("Did " + names[l] + " play any " + colors[j] + " cards this round? (Y/N) ");
+						input = kb.next().toUpperCase();
+						if (input.equals("Y"))
+						{
+							int roundScore = 0;
+							System.out.print("How many cards were played including wagers? ");
+							int numCards = kb.nextInt();
+
+							System.out.print("How many wagers were played? (Max 3) ");
+							int wagers = kb.nextInt();
+
+							int cardsLeft = numCards - wagers;
+							for (int k = 0; k < cardsLeft; k++)
+							{
+								System.out.print("Card: ");
+								int card = kb.nextInt();
+								roundScore += card;
+							}
+
+							roundScore -= 20;
+							if (wagers > 0)
+							{
+								roundScore *= wagers + 1;
+							}
+							if (numCards >= 8)
+							{
+								roundScore += 20;
+							}
+							prScore += roundScore;
+							if (l == 0)
+								p1score += roundScore;
+							else
+								p2score += roundScore;
+							System.out.print(names[l] + " got " + roundScore + " points with that color.\n\n");
+						}
+					}
+					System.out.println("\n" + names[l] + " got " + prScore + " for round " + (i + 1) + "\n");
+				}
+				System.out.println(
+						"Current scores are: " + names[0] + ": " + p1score + " " + names[1] + ": " + p2score);
+				if (i != 2)
+				{
+					if (p1score > p2score)
+					{
+						System.out.println(names[0] + " is ahead by " + (p1score - p2score) + " point(s).");
+						System.out.println(names[0] + " goes first next round");
+					} else
+					{
+						System.out.println(names[1] + " is ahead by " + (p2score - p1score) + " point(s).");
+						System.out.println(names[1] + " goes first next round");
+					}
+				}
+			}
+		}
+		if (p1score > p2score)
+			System.out.println(names[0] + " wins by " + (p1score - p2score) + " point(s)!");
+		else
+			System.out.println(names[1] + " wins by " + (p2score - p1score) + " point(s)!");
+	}
+}
